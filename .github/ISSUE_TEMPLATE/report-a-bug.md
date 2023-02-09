@@ -15,4 +15,4 @@ No being rude, or else we will not help you.
 
 
 **Screenshots**
-If you want too, add screenshots to help explain your problem.
+If you want to, add screenshots to help explain your problem.
