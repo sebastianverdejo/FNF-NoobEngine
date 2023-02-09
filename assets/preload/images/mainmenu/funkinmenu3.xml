@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="funkinmenu3.png">
+	<!-- Created with Adobe Animate version 22.0.3.179 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="move0000" x="3704" y="2138" width="922" height="704" pivotX="538.05" pivotY="291.4" frameX="0" frameY="-14" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0001" x="6657" y="717" width="954" height="708" frameX="0" frameY="-14" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0002" x="947" y="721" width="947" height="707" frameX="0" frameY="-16" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0003" x="913" y="2144" width="913" height="705" frameX="0" frameY="-16" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0004" x="2782" y="1440" width="922" height="705" frameX="0" frameY="-13" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0005" x="3802" y="716" width="954" height="709" frameX="0" frameY="-13" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0006" x="4756" y="718" width="947" height="711" frameX="0" frameY="-12" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0007" x="6616" y="1425" width="913" height="720" frameX="0" frameY="-1" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0008" x="1894" y="723" width="922" height="717" frameX="0" frameY="-1" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0009" x="0" y="0" width="954" height="721" frameX="0" frameY="-1" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0010" x="1908" y="0" width="947" height="723" frameX="0" frameY="0" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0011" x="5703" y="1422" width="913" height="721" frameX="0" frameY="0" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0012" x="2855" y="722" width="922" height="718" frameX="0" frameY="0" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0013" x="954" y="0" width="954" height="721" frameX="0" frameY="-1" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0014" x="2855" y="0" width="947" height="722" frameX="0" frameY="-1" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0015" x="5612" y="2143" width="913" height="709" frameX="0" frameY="-12" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0016" x="1860" y="1440" width="922" height="706" frameX="0" frameY="-12" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0017" x="5703" y="712" width="954" height="710" frameX="0" frameY="-12" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0018" x="0" y="721" width="947" height="711" frameX="0" frameY="-12" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0019" x="0" y="2139" width="913" height="710" frameX="0" frameY="-11" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0020" x="0" y="1432" width="922" height="707" frameX="0" frameY="-11" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0021" x="5703" y="0" width="954" height="712" frameX="0" frameY="-10" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0022" x="4756" y="0" width="947" height="718" frameX="0" frameY="-5" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0023" x="947" y="1428" width="913" height="716" frameX="0" frameY="-5" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0024" x="3777" y="1425" width="922" height="713" frameX="0" frameY="-5" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0025" x="3802" y="0" width="954" height="716" frameX="0" frameY="-6" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0026" x="6657" y="0" width="947" height="717" frameX="0" frameY="-6" frameWidth="954" frameHeight="723"/>
+	<SubTexture name="move0027" x="4699" y="1429" width="913" height="715" frameX="0" frameY="-6" frameWidth="954" frameHeight="723"/>
+</TextureAtlas>
