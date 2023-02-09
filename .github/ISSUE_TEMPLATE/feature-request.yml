@@ -1,5 +1,5 @@
 name: Feature Request
-description: what should we add more in the engine?
+description: what should we add in the engine?
 labels: [enhancement]
 body:
   - type: textarea
