@@ -86,7 +86,10 @@ class PauseSubState extends MusicBeatSubstate
 			bg.screenCenter();
 			
 		backdrops.scrollFactor.set(0, 0.07);
-		backdrops.angle = 45;
+		
+		#if (flixel < "5.0.0")
+        backdrops.angle = 45;
+        #end
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
 		levelInfo.text += PlayState.SONG.song;

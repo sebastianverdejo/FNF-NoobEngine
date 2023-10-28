@@ -103,7 +103,10 @@ class CharMenu extends MusicBeatState{
 			menuBG.screenCenter();
 			
 		backdrops.scrollFactor.set(0, 0.07);
-		backdrops.angle = 45;
+
+		#if (flixel < "5.0.0")
+        backdrops.angle = 45;
+        #end
 
         // Adds the chars to the selection
         for (i in 0...unlockedCharacters.length)
@@ -152,7 +155,7 @@ class CharMenu extends MusicBeatState{
         selectedCharName.alpha = 1;
         add(selectedCharName);
 
-        var somethin:FlxText = new FlxText(12, FlxG.height - 24, 0, "If you dont see the character, or if the position, size, or animation of the character is weird, it will not be present when your actually playing the game.", 12);
+        var somethin:FlxText = new FlxText(12, FlxG.height - 24, 0, "If you dont see the character, or if the position, size, or animation of the character looks weird, it will not be present when your actually playing the game.", 12);
 		somethin.scrollFactor.set();
 		somethin.setFormat("VCR OSD Mono", 13, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(somethin);

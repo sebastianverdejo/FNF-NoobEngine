@@ -259,6 +259,7 @@ class StoryMenuState extends MusicBeatState
 			else if (controls.ACCEPT)
 			{
 				selectWeek();
+				FlxTween.tween(FlxG.camera, {y: -1500}, 0.5, {ease: FlxEase.quartIn, startDelay: 0.7});
 			}
 		}
 

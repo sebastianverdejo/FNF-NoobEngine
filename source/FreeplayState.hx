@@ -125,7 +125,10 @@ class FreeplayState extends MusicBeatState
 			bg.screenCenter();
 			
 		backdrops.scrollFactor.set(0, 0.07);
-		backdrops.angle = 45;
+
+		#if (flixel < "5.0.0")
+        backdrops.angle = 45;
+        #end
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
@@ -349,13 +352,6 @@ class FreeplayState extends MusicBeatState
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
-			if(musicPlaying = true)
-			{
-				FlxG.sound.music.stop();
-				destroyFreeplayVocals();
-                musicPlaying = false;
-                FlxG.sound.playMusic(Paths.music('freakyMenu'));
-			}
 
 			FlxTween.tween(FlxG.camera, {y: FlxG.height}, 0.5, {ease: FlxEase.quartIn});
 
@@ -424,8 +420,10 @@ class FreeplayState extends MusicBeatState
 			if (FlxG.keys.pressed.SHIFT){
 				LoadingState.loadAndSwitchState(new ChartingState());
 			}else if (ClientPrefs.noCharMenu == false){
+				FlxTween.tween(FlxG.camera, {y: -1500}, 0.5, {ease: FlxEase.quartOutIn});
 				LoadingState.loadAndSwitchState(new CharMenu());
 			}else{
+				FlxTween.tween(FlxG.camera, {y: -1500}, 0.5, {ease: FlxEase.quartOutIn});
 				LoadingState.loadAndSwitchState(new PlayState());
 			}
 

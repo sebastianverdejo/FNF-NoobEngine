@@ -52,6 +52,8 @@ class MusicPlayerState extends MusicBeatState
   
     override function create()
     {
+        FreeplayState.destroyFreeplayVocals();
+
         FlxG.sound.playMusic(Paths.music('freeplaybeta'));
 
         var initSonglist = CoolUtil.coolTextFile(Paths.txt('djSonglist')); //ah yeah dj song list
@@ -76,9 +78,12 @@ class MusicPlayerState extends MusicBeatState
 			add(backdrops);
 		else
 			bg.screenCenter();
-			
-		backdrops.scrollFactor.set(0, 0.07);
-		backdrops.angle = 45;
+
+        backdrops.scrollFactor.set(0, 0.07);
+
+		#if (flixel < "5.0.0")
+        backdrops.angle = 45;
+        #end
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
@@ -89,7 +94,7 @@ class MusicPlayerState extends MusicBeatState
 
         for (i in 0...songs.length)
         {
-            var songText:Alphabet = new Alphabet(0, 0, songs[i].songName + (songs[i].hasVocals ? "" : "-Inst"), true, false);
+            var songText:Alphabet = new Alphabet(0, 0, songs[i].songName + (songs[i].hasVocals ? "" : " Inst"), true, false);
             songText.isMenuItem = true;
             //songText.SwitchXandY = true; this is stinky and dumb
             songText.targetY = i;

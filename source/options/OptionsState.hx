@@ -53,7 +53,14 @@ class OptionsState extends MusicBeatState
 			case 'Miscellaneous':
 				openSubState(new options.MoreSubState());
 			case 'Restart the Game':
-			TitleState.initialized = false; TitleState.closedState = false; FlxG.sound.music.fadeOut(0.3); FlxTween.tween(FlxG.camera, {y: FlxG.height}, 0.5, {ease: FlxEase.quartIn}); FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
+			TitleState.initialized = false; TitleState.closedState = false;
+			 FlxG.sound.music.fadeOut(0.3); FlxTween.tween(FlxG.camera, {y: FlxG.height}, 0.5, {ease: FlxEase.quartIn});
+			  FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
+			   if(FreeplayState.vocals != null)
+				{
+					FreeplayState.vocals.fadeOut(0.3);
+					FreeplayState.vocals = null;
+				}
 		}
 	}
 

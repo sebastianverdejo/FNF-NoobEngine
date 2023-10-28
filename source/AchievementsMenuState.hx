@@ -51,7 +51,10 @@ class AchievementsMenuState extends MusicBeatState
 			menuBG.screenCenter();
 			
 		backdrops.scrollFactor.set(0, 0.07);
-		backdrops.angle = 45;
+		
+		#if (flixel < "5.0.0")
+        backdrops.angle = 45;
+        #end
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
