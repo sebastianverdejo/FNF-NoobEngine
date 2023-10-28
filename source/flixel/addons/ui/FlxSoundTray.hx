@@ -17,8 +17,6 @@ import flash.text.AntiAliasType;
 import flash.text.GridFitType;
 #end
 
-/**
- */
 class FlxSoundTray extends Sprite
 {
 	/**
