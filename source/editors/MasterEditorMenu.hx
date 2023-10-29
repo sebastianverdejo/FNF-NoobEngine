@@ -39,7 +39,8 @@ class MasterEditorMenu extends MusicBeatState
 	private var curSelected = 0;
 	private var curDirectory = 0;
 	private var directoryTxt:FlxText;
-	var backdrops:FlxBackdrop = new FlxBackdrop(Paths.image('backdrop2'), #if (flixel < "5.0.0") 0, 0, true, true #else XY #end);
+	// BACKDROP CODE FROM C GIRL!!!
+	var backdrops:FlxBackdrop = new FlxBackdrop(Paths.image('backdrop'), #if (flixel < "5.0.0") 0, 0, true, true #else XY #end);
 
 	override function create()
 	{
@@ -57,10 +58,13 @@ class MasterEditorMenu extends MusicBeatState
 		if(ClientPrefs.hideCheckers == false)
 			add(backdrops);
 		else
-			bg.scrollFactor.set();
+			bg.screenCenter();
 			
 		backdrops.scrollFactor.set(0, 0.07);
-		backdrops.angle = 45;
+
+		#if (flixel < "5.0.0")
+        backdrops.angle = 45;
+        #end
 
 		grpTexts = new FlxTypedGroup<Alphabet>();
 		add(grpTexts);

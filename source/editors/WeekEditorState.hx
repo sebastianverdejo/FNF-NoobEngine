@@ -16,6 +16,7 @@ import openfl.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;
 import flixel.FlxCamera;
 import flixel.addons.display.FlxBackdrop;
+import flixel.util.FlxGradient;
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUI9SliceSprite;
 import flixel.addons.ui.FlxUI;
@@ -592,7 +593,9 @@ class WeekEditorFreeplayState extends MusicBeatState
 	}
 
 	var bg:FlxSprite;
+	// BACKDROP CODE FROM C GIRL!!!
 	var backdrops:FlxBackdrop = new FlxBackdrop(Paths.image('backdrop'), #if (flixel < "5.0.0") 0, 0, true, true #else XY #end);
+	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFFAA00AA);
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<HealthIcon> = [];
 
@@ -605,13 +608,22 @@ class WeekEditorFreeplayState extends MusicBeatState
 		bg.color = FlxColor.WHITE;
 		add(bg);
 
+		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55f15792, 0xAAd61375], 1, 90, true);
+		gradientBar.y = FlxG.height - gradientBar.height;
+		gradientBar.updateHitbox();
+		add(gradientBar);
+		gradientBar.scrollFactor.set(0, 0);
+
 		if(ClientPrefs.hideCheckers == false)
 			add(backdrops);
 		else
-			bg.antialiasing = ClientPrefs.globalAntialiasing;
+			bg.screenCenter();
 			
 		backdrops.scrollFactor.set(0, 0.07);
-		backdrops.angle = 45;
+
+		#if (flixel < "5.0.0")
+        backdrops.angle = 45;
+        #end
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);

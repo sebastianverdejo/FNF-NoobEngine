@@ -3127,7 +3127,7 @@ class PlayState extends MusicBeatState
 		}
 		else if (ClientPrefs.Iconbop == 'Noob')
 		{
-			iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.height, 0.8)),Std.int(FlxMath.lerp(150, iconP2.height, 0.8)));
+			iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.height, -0.8)),Std.int(FlxMath.lerp(150, iconP2.height, -0.8)));
 		}
 		else if (ClientPrefs.Iconbop == 'Golden Apple')
 		{

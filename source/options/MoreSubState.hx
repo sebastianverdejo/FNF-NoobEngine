@@ -113,13 +113,6 @@ class MoreSubState extends BaseOptionsMenu
 
 	function onChangeFullScreen()
 	{
-		if(ClientPrefs.fullScreen == true)
-		{
 			FlxG.fullscreen = ClientPrefs.fullScreen;
-		}
-		else if(ClientPrefs.fullScreen == false)
-		{
-			FlxG.fullscreen = ClientPrefs.fullScreen;
-		}
 	}
 }

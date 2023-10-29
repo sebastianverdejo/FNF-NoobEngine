@@ -420,10 +420,10 @@ class FreeplayState extends MusicBeatState
 			if (FlxG.keys.pressed.SHIFT){
 				LoadingState.loadAndSwitchState(new ChartingState());
 			}else if (ClientPrefs.noCharMenu == false){
-				FlxTween.tween(FlxG.camera, {y: -1500}, 0.5, {ease: FlxEase.quartOutIn});
+				FlxTween.tween(FlxG.camera, {y: -1500}, 0.5, {ease: FlxEase.quartOut});
 				LoadingState.loadAndSwitchState(new CharMenu());
 			}else{
-				FlxTween.tween(FlxG.camera, {y: -1500}, 0.5, {ease: FlxEase.quartOutIn});
+				FlxTween.tween(FlxG.camera, {y: -1500}, 0.5, {ease: FlxEase.quartOut});
 				LoadingState.loadAndSwitchState(new PlayState());
 			}
 
