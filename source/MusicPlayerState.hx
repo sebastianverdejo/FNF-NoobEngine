@@ -9,6 +9,12 @@ import flixel.system.FlxSound;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
+#if sys
+import sys.io.File;
+import sys.FileSystem;
+import haxe.Json;
+import haxe.format.JsonParser;
+#end
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
@@ -19,6 +25,7 @@ import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;
 import flixel.FlxCamera;
 import flixel.addons.display.FlxBackdrop;
+import flixel.util.FlxGradient;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -28,7 +35,7 @@ using StringTools;
 //a lot of this code is copied from freeplay lol
 
 //unlike the character select code, you guys are free to use this without asking me(but you gotta give me credit), although you might have to ask moldy. -ben
-
+//thanks ben!! -seb
 class MusicPlayerState extends MusicBeatState
 {
     var songs:Array<PlaySongMetadata> = [];
@@ -38,9 +45,11 @@ class MusicPlayerState extends MusicBeatState
     var CurVocals:FlxSound;
     var currentlyplaying:Bool = false;
     public var playdist:Float = 0;
-    var bg:FlxSprite;
+    var bg:FlxSprite;	
+    var intendedColor:Int;
     var colorTween:FlxTween;
     var backdrops:FlxBackdrop = new FlxBackdrop(Paths.image('backdrop'), #if (flixel < "5.0.0") 0, 0, true, true #else XY #end);
+    var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFFAA00AA);
 
     private var healthBarBG:FlxSprite;
 	private var healthBar:FlxBar;
@@ -52,11 +61,15 @@ class MusicPlayerState extends MusicBeatState
   
     override function create()
     {
+        #if MODS_ALLOWED
+		Paths.pushGlobalMods();
+		#end
+
         FreeplayState.destroyFreeplayVocals();
 
         FlxG.sound.playMusic(Paths.music('freeplaybeta'));
 
-        var initSonglist = CoolUtil.coolTextFile(Paths.txt('djSonglist')); //ah yeah dj song list
+        var initSonglist = CoolUtil.coolTextFile(Paths.txt('OSTList')); //ah yeah dj song list
         for (i in 0...initSonglist.length)
         {
             var splitstring:Array<String> = initSonglist[i].split(",");
@@ -68,8 +81,29 @@ class MusicPlayerState extends MusicBeatState
                 songs.push(new PlaySongMetadata(splitstring[1], splitstring[0] == "external", splitstring[2],splitstring[3] == "bad",false));
             }
         }
+        #if MODS_ALLOWED
+        var initSonglistMod = CoolUtil.coolTextFile(Paths.mods(Paths.currentModDirectory + "/data/OSTList.txt")); //ah yeah the MOD dj song list
+        for (i in 0...initSonglistMod.length)
+        {
+            var splitstring:Array<String> = initSonglistMod[i].split(",");
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menuBGBlue'));
+            songs.push(new PlaySongMetadata(splitstring[1], splitstring[0] == "external", splitstring[2],splitstring[3] == "bad",true));
+
+            if (splitstring[0] != "external") //remove this later
+            {
+                songs.push(new PlaySongMetadata(splitstring[1], splitstring[0] == "external", splitstring[2],splitstring[3] == "bad",false));
+            }
+        }
+        #end
+
+		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55f15792, 0xAAd61375], 1, 90, true);
+		gradientBar.y = FlxG.height - gradientBar.height;
+		gradientBar.updateHitbox();
+		add(gradientBar);
+		gradientBar.scrollFactor.set(0, 0);
+        gradientBar.screenCenter();
+
+        bg = new FlxSprite().loadGraphic(Paths.image('menuBGOST'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
@@ -100,6 +134,19 @@ class MusicPlayerState extends MusicBeatState
             songText.targetY = i;
             grpSongs.add(songText);
 
+            if (songText.width > 980)
+			{
+				var textScale:Float = 980 / songText.width;
+				songText.scale.x = textScale;
+				for (letter in songText.lettersArray)
+				{
+					letter.x *= textScale;
+					letter.offset.x *= textScale;
+				}
+				//songText.updateHitbox();
+				//trace(songs[i].songName + ' new scale: ' + textScale);
+			}
+
             var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
             icon.sprTracker = songText;
             icon.animation.curAnim.curFrame = songs[i].ShowBadIcon ? 1 : 0;
@@ -128,8 +175,8 @@ class MusicPlayerState extends MusicBeatState
 		iconP2.y = healthBar.y - (iconP2.height / 2);
 		//add(iconP2);
 
-        barText = new FlxText(50, 0, "", 20);
-		barText.setFormat(Paths.font("vcr.ttf"), 36, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+        barText = new FlxText(100, 450, 0, "", 20);
+		barText.setFormat(Paths.font("vcr.ttf"), 70, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 		barText.scrollFactor.set();
 		add(barText);
 
@@ -143,6 +190,7 @@ class MusicPlayerState extends MusicBeatState
         super.create();
     }
 
+    var holdTime:Float = 0;
     override function update(elapsed:Float)
     {
         super.update(elapsed);
@@ -177,14 +225,29 @@ class MusicPlayerState extends MusicBeatState
 		else
 			iconP2.animation.curAnim.curFrame = 0;
 
+        var select:Int = 1;
 		if (upP)
 		{
-			changeSelection(-1);
+			changeSelection(-select);
+            holdTime = 0;
 		}
 		if (downP)
 		{
-			changeSelection(1);
+			changeSelection(select);
+            holdTime = 0;
 		}
+        if(controls.UI_DOWN || controls.UI_UP)
+		{
+				var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
+				holdTime += elapsed;
+				var checkNewHold:Int = Math.floor((holdTime - 0.5) * 10);
+
+				if(holdTime > 0.5 && checkNewHold - checkLastHold > 0)
+				{
+					changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -select : select));
+				}
+		}
+
         if (currentlyplaying)
         {
             if (leftP)
@@ -426,6 +489,7 @@ class PlaySongMetadata
     public var ShowBadIcon:Bool = false;
 	public var songCharacter:String = "";
     public var hasVocals:Bool = true;
+    public var folder:String = "";
 
 	public function new(song:String, external:Bool, songCharacter:String, bad:Bool, vocal:Bool)
 	{
@@ -434,5 +498,7 @@ class PlaySongMetadata
 		this.songCharacter = songCharacter;
         this.ShowBadIcon = bad;
         this.hasVocals = vocal;
+        this.folder = Paths.currentModDirectory;
+		if(this.folder == null) this.folder = '';
 	}
 }

@@ -423,6 +423,10 @@ class Paths
 		return modFolders('images/' + key + '.txt');
 	}
 
+	inline static public function modsTxtData(key:String) {
+		return modFolders('data/' + key + '.txt');
+	}
+
 	/* Goes unused for now
 
 	inline static public function modsShaderFragment(key:String, ?library:String)
